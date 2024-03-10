@@ -2,6 +2,22 @@
 
 # Changelog
 
+## 5.0.0
+
+### Breaking Changes
+
+- Drop support for i386 and armhf architectures as all other community add-ons have beeen doing this
+
+### New Features
+
+- Include `app_rtsp_sip` for ARM builds
+
+### Upgrades
+
+- Upgrade Asterisk from 20.5.2 to 20.6.0
+- Upgrade asterisk-chan-dongle to latest revision
+- Upgrade asterisk-googletts to latest revision
+
 ## 4.1.2
 
 ### Upgrades

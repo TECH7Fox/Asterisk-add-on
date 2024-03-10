@@ -1,15 +1,15 @@
 name: Asterisk
-version: 4.1.2
+version: 5.0.0
+breaking_versions:
+  - 5.0.0
 slug: asterisk
 description: PBX server for SIP devices like doorbells and phones
 url: https://github.com/TECH7Fox/asterisk-hass-addons
 image: ghcr.io/tech7fox/asterisk-hass-addon
 arch:
-  - armhf
   - armv7
   - aarch64
   - amd64
-  - i386
 homeassistant_api: true
 map:
   - config:rw

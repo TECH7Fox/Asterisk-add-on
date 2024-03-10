@@ -106,14 +106,14 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
 
 # Taken from https://metadata.ftp-master.debian.org/changelogs/main/a/asterisk/unstable_changelog
 # (replace all ~ with _ and remove final -)
-ARG ASTERISK_OPUS_VERSION="20.5.2_dfsg+_cs6.13.40431414"
+ARG ASTERISK_OPUS_VERSION="20.6.0_dfsg+_cs6.13.40431414"
 WORKDIR /usr/src/asterisk-opus
 RUN curl -fsSL "https://salsa.debian.org/pkg-voip-team/asterisk/-/archive/upstream/${ASTERISK_OPUS_VERSION}/asterisk-upstream-${ASTERISK_OPUS_VERSION}.tar.gz?path=Xopus" | \
     tar --strip-components 2 -xz
 
 # https://github.com/asterisk/asterisk/tags
 # https://www.asterisk.org/downloads/asterisk/all-asterisk-versions/
-ARG ASTERISK_VERSION="20.5.2"
+ARG ASTERISK_VERSION="20.6.0"
 WORKDIR /usr/src/asterisk
 RUN curl -fsSL "http://downloads.asterisk.org/pub/telephony/asterisk/releases/asterisk-${ASTERISK_VERSION}.tar.gz" | \
     tar --strip-components 1 -xz
@@ -244,7 +244,7 @@ RUN \
 ## Install chan-gongle
 WORKDIR /usr/src/asterisk-chan-dongle
 # https://github.com/wdoekes/asterisk-chan-dongle/commits/master
-ARG CHAN_DONGLE_VERSION="503dba87d726854b74b49e70679e64e6e86d5812"
+ARG CHAN_DONGLE_VERSION="13450af5f648ddf4bc279c08e53917f503253bdd"
 RUN curl -fsSL "https://github.com/wdoekes/asterisk-chan-dongle/archive/${CHAN_DONGLE_VERSION}.tar.gz" | \
     tar --strip-components 1 -xz
 RUN ./bootstrap; \
@@ -260,7 +260,7 @@ RUN ./bootstrap; \
 WORKDIR /usr/src/asterisk-googletts
 COPY patches/googletts/change_tmp_dir.patch .
 # https://github.com/zaf/asterisk-googletts/commits/master
-ARG GOOGLETTS_VERSION="5566ddc42e99d15cfaee2c4b8882e171ada2e479"
+ARG GOOGLETTS_VERSION="0592005ed97cf8c83bfacedee933def20307b8a2"
 RUN curl -fsSL "https://github.com/zaf/asterisk-googletts/archive/${GOOGLETTS_VERSION}.tar.gz" | \
     tar --strip-components 1 -xz; \
     patch -p1 < change_tmp_dir.patch
