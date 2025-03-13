@@ -288,6 +288,8 @@ COPY rootfs /
 # Without this, the STDIN script never gets executed
 ENV S6_CMD_WAIT_FOR_SERVICES=0
 
+HEALTHCHECK --interval=10s --timeout=10s --retries=3 CMD /usr/sbin/asterisk -rx "core show sysinfo"
+
 ENTRYPOINT [ "/entrypoint.sh" ]
 CMD [ "/stdin.sh" ]
 

@@ -38,7 +38,7 @@ fi
 readonly ha_token="${HA_TOKEN:-"${SUPERVISOR_TOKEN:-}"}"
 
 readonly etc_asterisk="/etc/asterisk"
-readonly config_dir="/config/asterisk"
+readonly config_dir="/config"
 readonly default_config_dir="${config_dir}/default"
 readonly custom_config_dir="${config_dir}/custom"
 
