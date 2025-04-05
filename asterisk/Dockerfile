@@ -80,6 +80,8 @@ RUN export DEBIAN_FRONTEND=noninteractive; \
         automake \
         build-essential \
         binutils-dev \
+        cmake \
+        libasound2-dev \
         libcurl4-openssl-dev \
         libedit-dev \
         libgsm1-dev \
@@ -237,7 +239,9 @@ RUN \
     # install asterisk binaries and modules \
     DESTDIR="${INSTALL_DIR}" make install; \
     # install example configuration \
-    DESTDIR="${INSTALL_DIR}" make samples
+    DESTDIR="${INSTALL_DIR}" make samples; \
+    # install headers
+    make install-headers
 
 ## Install chan-dongle
 WORKDIR /usr/src/asterisk-chan-dongle
@@ -253,6 +257,21 @@ RUN ./bootstrap; \
     make all; \
     make install; \
     cp -f etc/dongle.conf "${INSTALL_DIR}/etc/asterisk/"
+
+## Install chan-quectel
+WORKDIR /usr/src/asterisk-chan-quectel
+# https://github.com/RoEdAl/asterisk-chan-quectel/commits/master
+ARG CHAN_QUECTEL_VERSION="5552c365bfb319eed7cbbf6300a67028ab70db9e"
+RUN curl -fsSL "https://github.com/RoEdAl/asterisk-chan-quectel/archive/${CHAN_QUECTEL_VERSION}.tar.gz" | \
+    tar --strip-components 1 -xz
+RUN mkdir build; \
+    cmake -B build \
+        -DASTERISK_VERSION_NUM="${ASTERISK_VERSION}" \
+        -DAST_DIR="/usr/src/asterisk/include"; \
+    cmake --build build; \
+    DESTDIR=$(pwd)/install cmake --install build; \
+    cp -f install/usr/local/lib/*/asterisk/modules/chan_quectel.so "${INSTALL_DIR}/usr/lib/asterisk/modules"; \
+    cp -f install/usr/local/etc/asterisk/quectel.conf "${INSTALL_DIR}/etc/asterisk/"
 
 ## Install googletts
 WORKDIR /usr/src/asterisk-googletts
